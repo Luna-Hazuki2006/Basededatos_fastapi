@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='../static/styles.css') }}">
+    <title>Tus items</title>
+</head>
+<body>
+    <a href="/items">Volver a la página principal</a>
+    <h1>Item {{ item.id }}</h1>
+    <p>Número: {{ item.id }}</p>
+    <p>Nombre: {{ item.nombre }}</p>
+    <p>Descripción: {{ item.descripcion }}</p>
+    {% if item.recomendado %}
+    <p>Este item es recomendado</p>
+    {% else %}
+    <p>Este item no es recomendado</p>
+    {% endif %}
+</body>
+</html>

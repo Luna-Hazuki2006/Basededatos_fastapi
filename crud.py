@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 import modelos, schemas
 
 # def get_user(bd: Session, user_id: int):
@@ -30,3 +31,9 @@ def create_item(bd: Session, item: schemas.ItemCreate):
     bd.refresh(bd_item)
     print("bd items: ", bd_item)
     return bd_item
+
+def buscar_item(bd: Session, id: int, skip: int = 0, limit: int = 100): 
+    lista = bd.query(modelos.Item).offset(skip).limit(limit).all()
+    for esto in lista: 
+        if esto.id == id: 
+            return esto

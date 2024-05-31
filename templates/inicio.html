@@ -12,13 +12,15 @@
         <tr>
             <th>Id</th>
             <th>Nombre</th>
-            <th>Recomendado</th>
+            <th>Consultar</th>
         </tr>
         {% for esto in items %}
         <tr>
             <td>{{ esto.id }}</td>
             <td>{{ esto.nombre }}</td>
-            <td>{{ esto.recomendado }}</td>
+            <td>
+                <a href="/item/{{ esto.id }}">👁</a>
+            </td>
         </tr>
         {% endfor %}
     </table>

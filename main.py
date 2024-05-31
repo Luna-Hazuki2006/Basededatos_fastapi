@@ -23,7 +23,7 @@ def get_bd():
         bd.close()
 
 @app.post('/item', response_model=schemas.Item)
-async def crear_item(item: schemas.ItemCreate, request: Request, bd: Session = Depends(get_bd)): 
+async def crear_item(item: schemas.ItemCreate, bd: Session = Depends(get_bd)): 
     return crud.create_item(bd, item)
 
 @app.get('/items', response_model=list[schemas.Item])
@@ -34,8 +34,8 @@ async def listar_items(request: Request, bd: Session = Depends(get_bd)):
     )
 
 @app.get('/item/{id}', response_model=schemas.Item)
-async def buscar_item(id : str): 
-    return f'Este item: {id}'
+async def encontrar_item(id : str, bd: Session = Depends(get_bd)): 
+    return crud.buscar_item(bd, id)
 
 @app.put('/item/{id}', response_model=schemas.Item)
 async def actualizar_item(id : str): 
