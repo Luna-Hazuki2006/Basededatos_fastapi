@@ -15,7 +15,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # Dependenncia
-def get_db():
+def get_bd():
     bd = SessionLocal()
     try:
         yield bd
@@ -23,12 +23,12 @@ def get_db():
         bd.close()
 
 @app.post('/item', response_model=schemas.Item)
-async def crear_item(): 
-    return 'Un item :D'
+async def crear_item(item: schemas.ItemCreate, request: Request, bd: Session = Depends(get_bd)): 
+    return crud.create_item(bd, item)
 
 @app.get('/items', response_model=list[schemas.Item])
-async def listar_items(request: Request, skip: int = 0, limit: int = 100, bd: Session = Depends(get_db)): 
-    items = crud.get_items(bd, skip=skip, limit=limit)
+async def listar_items(request: Request, bd: Session = Depends(get_bd)): 
+    items = crud.get_items(bd)
     return templates.TemplateResponse(
         request=request, name="inicio.html", context={"items": items}
     )

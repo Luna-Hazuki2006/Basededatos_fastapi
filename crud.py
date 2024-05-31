@@ -22,7 +22,7 @@ import modelos, schemas
 def get_items(bd: Session, skip: int = 0, limit: int = 100):
     return bd.query(modelos.Item).offset(skip).limit(limit).all()
 
-def create_user_item(bd: Session, item: schemas.ItemCreate):
+def create_item(bd: Session, item: schemas.ItemCreate):
     bd_item = modelos.Item(**item.model_dump())
     print("bd item: ", bd_item)
     bd.add(bd_item)
