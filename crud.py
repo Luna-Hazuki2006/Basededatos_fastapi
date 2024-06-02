@@ -32,8 +32,23 @@ def create_item(bd: Session, item: schemas.ItemCreate):
     print("bd items: ", bd_item)
     return bd_item
 
-def buscar_item(bd: Session, id: int, skip: int = 0, limit: int = 100): 
-    lista = bd.query(modelos.Item).offset(skip).limit(limit).all()
+def buscar_item(bd: Session, id: int): 
+    item = bd.query(modelos.Item).filter(modelos.Item.id == id).first()
+    return item
+        
+def modificar_item(bd: Session, id: int, item: schemas.ItemCreate): 
+    lista = bd.query(modelos.Item).offset(0).limit(100).all()
     for este in lista: 
         if este.id == id: 
-            return este
+            este.nombre = item.nombre
+            este.descripcion = item.descripcion
+            este.recomendado = item.recomendado
+            break
+    bd.commit()
+    return este
+
+def eliminar_item(bd: Session, id: int): 
+    item = bd.query(modelos.Item).filter(modelos.Item.id == id).first()
+    bd.delete(item)
+    bd.commit()
+    return item

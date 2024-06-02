@@ -34,16 +34,16 @@ async def listar_items(request: Request, bd: Session = Depends(get_bd)):
     )
 
 @app.get('/item/{id}', response_model=schemas.Item)
-async def encontrar_item(id : int, bd: Session = Depends(get_bd)):
-    print(id) 
-    este = crud.buscar_item(bd, id)
-    print(este)
-    return este
+async def encontrar_item(request: Request, id : int, bd: Session = Depends(get_bd)):
+    item = crud.buscar_item(bd, id)
+    return templates.TemplateResponse(
+        request=request, name='unico.html', context={'item': item}
+    )
 
 @app.put('/item/{id}', response_model=schemas.Item)
-async def actualizar_item(id : int): 
-    return f'Este item {id}'
+async def actualizar_item(request: Request, id : int, item: schemas.ItemCreate, bd: Session = Depends(get_bd)): 
+    return crud.modificar_item(bd, id, item)
 
 @app.delete('/item/{id}', response_model=schemas.Item)
-async def borrar_item(id : int): 
-    return f'Este item {id} :\'v'
+async def borrar_item(request: Request, id : int, bd: Session = Depends(get_bd)): 
+    return crud.eliminar_item(bd, id)
