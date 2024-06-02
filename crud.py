@@ -33,7 +33,4 @@ def create_item(bd: Session, item: schemas.ItemCreate):
     return bd_item
 
 def buscar_item(bd: Session, id: int, skip: int = 0, limit: int = 100): 
-    lista = bd.query(modelos.Item).offset(skip).limit(limit).all()
-    for esto in lista: 
-        if esto.id == id: 
-            return esto
+    return bd.query(modelos.Item).filter(modelos.Item == id).first()

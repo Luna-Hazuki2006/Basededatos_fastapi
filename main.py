@@ -34,13 +34,14 @@ async def listar_items(request: Request, bd: Session = Depends(get_bd)):
     )
 
 @app.get('/item/{id}', response_model=schemas.Item)
-async def encontrar_item(id : str, bd: Session = Depends(get_bd)): 
+async def encontrar_item(id : int, bd: Session = Depends(get_bd)):
+    print(id) 
     return crud.buscar_item(bd, id)
 
 @app.put('/item/{id}', response_model=schemas.Item)
-async def actualizar_item(id : str): 
+async def actualizar_item(id : int): 
     return f'Este item {id}'
 
 @app.delete('/item/{id}', response_model=schemas.Item)
-async def borrar_item(id : str): 
+async def borrar_item(id : int): 
     return f'Este item {id} :\'v'

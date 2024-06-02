@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 class ItemBase(BaseModel):
     nombre: str
-    descripcion: str | None = None
+    descripcion: str 
     recomendado: bool
 
 class ItemCreate(ItemBase):
