@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', path='../static/styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', path='../static/basededatos.ico') }}" type="image/x-icon">
     <title>Tus items</title>
 </head>
 <body>
     <a href="/items">
-        <span style="font-size: xx-large;">👈</span>
+        <span class="volver">👈</span>
     </a>
     <h1>Item {{ item.id }}</h1>
-    <p>Número: {{ item.id }}</p>
-    <p>Nombre: {{ item.nombre }}</p>
-    <p>Descripción: {{ item.descripcion }}</p>
-    {% if item.recomendado %}
-    <p>Este item es recomendado</p>
-    {% else %}
-    <p>Este item no es recomendado</p>
-    {% endif %}
+    <hr>
+    <div class="tarjeta">
+        <p>Número: {{ item.id }}</p>
+        <p>Nombre: {{ item.nombre }}</p>
+        <p>Descripción: {{ item.descripcion }}</p>
+        {% if item.recomendado %}
+        <p>Este item es recomendado</p>
+        {% else %}
+        <p>Este item no es recomendado</p>
+        {% endif %}
+    </div>
 </body>
 </html>
